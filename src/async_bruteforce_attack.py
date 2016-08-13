@@ -11,9 +11,13 @@ class BruteForceClient(object):
 
     async def bruteforce(self):
         resps = await gather(*[Task(self.async_post(_pass)) for _pass in self.passwords], return_exceptions=True)
-        for resp in resps:
-            for k, v in resp.items():
-                print(k, resp[k].content.total_bytes)
+        result = {}
+        async for resp in resps:
+            async for k, v in resp.items():
+                result[k] = resp[k].content.total_bytes
+
+        # TODO: asynchronize for loop
+
 
     async def async_post(self, password):
         data = self.params
